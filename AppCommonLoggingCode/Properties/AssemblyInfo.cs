@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("AppCommonLoggingConfig")]
+[assembly: AssemblyTitle("AppCommonLoggingCode")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AppCommonLoggingConfig")]
+[assembly: AssemblyProduct("AppCommonLoggingCode")]
 [assembly: AssemblyCopyright("Copyright ©  2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("dda0c73a-9095-4661-86ed-53c9c8e3f9ab")]
+[assembly: Guid("65BAD18A-E882-4D81-A506-BD7198D0B79D")]
 
 // 程序集的版本信息由下列四个值组成: 
 //
