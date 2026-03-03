@@ -14,6 +14,7 @@ namespace AppUseTwoLog4net
             Log.Info("Start use NLog");
             LibUseLog4net1210.Class1.Say();
             LibUseLog4net2017.Class1.Say();
+            LibUseMEL.Class1.Say();
             Log.Error("End use NLog");
         }
     }
