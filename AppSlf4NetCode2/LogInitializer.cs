@@ -20,57 +20,27 @@ namespace AppSlf4NetCode2
             XmlConfigurator.ConfigureAndWatch(configFile);
 
             var loggerFactory = new SimpleLog4netLoggerFactory();
-            var resolver = new SimpleSlf4netFactoryResolver(loggerFactory);
-            LoggerFactory.SetFactoryResolver(resolver);
+            LoggerFactory.SetFactoryResolver(loggerFactory);
         }
     }
 
-    /// <summary>
-    /// A simple implementation of slf4net.IFactoryResolver
-    /// </summary>
-    public class SimpleSlf4netFactoryResolver : IFactoryResolver
+    public class SimpleLog4netLoggerFactory : NamedLoggerFactoryBase,
+                                                ILoggerFactory,
+                                                IFactoryResolver,
+                                                ISlf4netServiceProvider,
+                                                ISlf4netServiceProviderResolver
     {
-        private ILoggerFactory _factory;
-
-        /// <summary>
-        /// The constructor takes the ILoggerFactory to be used by slf4net
-        /// </summary>
-        public SimpleSlf4netFactoryResolver(ILoggerFactory factory)
-        {
-            _factory = factory;
-        }
-
-        /// <summary>
-        /// IFactoryResolver GetFactory() implementation
-        /// </summary>
-        public ILoggerFactory GetFactory()
-        {
-            return _factory;
-        }
-    }
-
-    /// <summary>
-    /// An implementation of the slf4net.ILoggerFactory interface which creates slf4net.ILogger
-    /// use only configured global Log4net Repository
-    /// </summary>
-    public class SimpleLog4netLoggerFactory : NamedLoggerFactoryBase, ILoggerFactory, ISlf4netServiceProvider
-    {
-        private readonly Log4netMdcAdapter _mdcAdapter = new Log4netMdcAdapter();
+        private readonly IMdcAdapter _mdcAdapter = new Log4netMdcAdapter();
 
         protected override ILogger CreateLogger(string name)
-        {
-            ILog logger = LogManager.GetLogger(name);
-            return new Log4netLoggerAdapter(logger);
-        }
+            => new Log4netLoggerAdapter(LogManager.GetLogger(name));
 
-        public ILoggerFactory GetLoggerFactory()
-        {
-            return this;
-        }
+        public ILoggerFactory GetFactory() => this;
 
-        public IMdcAdapter GetMdcAdapter()
-        {
-            return _mdcAdapter;
-        }
+        public ILoggerFactory GetLoggerFactory() => this;
+
+        public IMdcAdapter GetMdcAdapter() => _mdcAdapter;
+
+        public ISlf4netServiceProvider GetProvider() => this;
     }
 }
