@@ -4,11 +4,7 @@ using log4net.Util;
 using slf4net;
 using slf4net.Factories;
 using slf4net.log4net;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace AppSlf4NetCode2
 {
@@ -20,13 +16,12 @@ namespace AppSlf4NetCode2
             XmlConfigurator.ConfigureAndWatch(configFile);
 
             var loggerFactory = new SimpleLog4netLoggerFactory();
-            LoggerFactory.SetFactoryResolver(loggerFactory);
+            LoggerFactory.SetServiceProviderResolver(loggerFactory);
         }
     }
 
     public class SimpleLog4netLoggerFactory : NamedLoggerFactoryBase,
                                                 ILoggerFactory,
-                                                IFactoryResolver,
                                                 ISlf4netServiceProvider,
                                                 ISlf4netServiceProviderResolver
     {
@@ -34,8 +29,6 @@ namespace AppSlf4NetCode2
 
         protected override ILogger CreateLogger(string name)
             => new Log4netLoggerAdapter(LogManager.GetLogger(name));
-
-        public ILoggerFactory GetFactory() => this;
 
         public ILoggerFactory GetLoggerFactory() => this;
 
